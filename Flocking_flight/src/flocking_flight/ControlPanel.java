@@ -9,7 +9,7 @@ import java.awt.Graphics;
 
 import java.awt.GridLayout;
 
-
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -25,84 +25,125 @@ import repast.simphony.userpanel.ui.UserPanelCreator;
 
 public class ControlPanel implements UserPanelCreator, ChangeListener{
 	
+	/*
+	 * 
+Model Settings:
+
+ï·	Repulsion Strength (D): default 1.0 (per s)
+ï·	EQ Distance (r0): default 10.0 (m)
+ï·	Friction Coefficient (Cfrict ): default 10.0 (m^2/s)
+ï·	Shill Coefficient (Cshill): default 2.0
+ï·	Flocking Speed (Vflock): default 4.0 (m/s)
+ï·	Preferred Speed (V0): default 4.0 (m/s)
+ï·	TRG Coefficient (alpha): default 1.0 
+ï·	COM Coefficient (beta): default 1.0
+
+Hardware Settings:
+
+ï·	GPS Refresh Rate: default 0.2 (s)
+ï·	Sensor Range: default 100 (m)
+ï·	Relaxation Time of PID: default 1.0 (s)
+ï·	GPS xy Accuracy (inner noise): default 0.000 (m^2/s^2)
+
+Environment Settings: 
+
+ï·	Delay Time: default 1 (s)
+ï·	Outer Noise: default 0.1 (m^2/s^3)
+
+Simulation Settings:
+
+ï·	Visualization Speed: default 50 (per s)
+ï·	X Position of Target:
+ï·	Y Position of Target: 
+
+
+	 */
 	
-	public static double R0 = 10;
-	public static double Rmin = 10;
 	public static double Rtrg = 6.5;
 	public static double Rcom = 15;
-	public static double RC = 100;
-	
-	public static double D = 1;
-	public static double Cfrict = 10;
-	public static double Cshill = 2;
-	
-	
-	public static double Aa = 1;
-	public static double Bb = 1;
+	public static double Rmin = 10;
 	public static double d = 2;
-	
-	
-	public static double V0 = 2;
-	public static double Vflock = 4;
-	
-	
-	public static double Tdel = 1;
-	public static double t = 1;
-	public static double T = 0.01;
-	//public static double Trec = 5;
-	
-	
-	public static double Noise = 0;
-	
-	public static Vector2d Xtrg = new Vector2d(80, 80);
-	
 	public static int Wall_x = 50;
 	public static int Wall_y = 50;
 	
 	
-	JSlider slider1;
-	JSlider slider2;
-	JSlider slider3;
-	JSlider slider4;
-	JSlider slider5;
-	JSlider slider6;
-	JSlider slider7;
-	JSlider slider8;
-	JSlider slider9;
-	JSlider slider10;
-	JSlider slider11;
-	JSlider slider12;
-	JSlider slider13;
-	JSlider slider14;
-	JSlider slider15;
-	JSlider slider16;
-	JSlider slider17;
-	JSlider slider18;
+	
+	public static double D = 1;
+	public static double R0 = 10;
+	public static double Cfrict = 10;
+	public static double Cshill = 2;
+	public static double Vflock = 4;
+	public static double V0 = 4;
+	public static double Aa = 1;
+	public static double Bb = 1;
 	
 	
-	JLabel label1;
-	JLabel label2;
-	JLabel label3;
-	JLabel label4;
-	JLabel label5;
-	JLabel label6;
-	JLabel label7;
-	JLabel label8;
-	JLabel label9;
-	JLabel label10;
-	JLabel label11;
-	JLabel label12;
-	JLabel label13;
-	JLabel label14;
-	JLabel label15;
-	JLabel label16;
-	JLabel label17;
-	JLabel label18;
+	
+	public static double Trec = 0.2;
+	public static double Rc = 100;
+	public static double t = 1;
+	public static double innerNoise = 0;
+	
+	public static double Tdel = 1;
+	public static double outerNoise = 0.1;
+	
+	public static double T = 0.02;//50/s
+	public static Vector2d Xtrg = new Vector2d(80, 80);
+	
+	
+
+	JSlider sliderD;
+	JSlider sliderR0;
+	JSlider sliderCfrict;
+	JSlider sliderCshill;
+	JSlider sliderVflock;
+	JSlider sliderV0;
+	JSlider sliderAa;
+	JSlider sliderBb;
+	
+	JSlider sliderTrec;
+	JSlider sliderRc;
+	JSlider slidert;
+	JSlider sliderInnerNoise;
+	
+	JSlider sliderTdel;
+	JSlider sliderOuterNoise;
+	
+	JSlider sliderT;
+	JSlider sliderXtrg_x;
+	JSlider sliderXtrg_y;
+	
+	JLabel labelD;
+	JLabel labelR0;
+	JLabel labelCfrict;
+	JLabel labelCshill;
+	JLabel labelVflock;
+	JLabel labelV0;
+	JLabel labelAa;
+	JLabel labelBb;
+	
+	JLabel labelTrec;
+	JLabel labelRc;
+	JLabel labelt;
+	JLabel labelInnerNoise;
+	
+	JLabel labelTdel;
+	JLabel labelOuterNoise;
+	
+	JLabel labelT;
+	JLabel labelXtrg_x;
+	JLabel labelXtrg_y;
+	
+
 	
 	
 	
 	JPanel panel;
 	JPanel panelSlider;
+	JPanel panelSlider1;
+	JPanel panelSlider2;
+	JPanel panelSlider3;
+	JPanel panelSlider4;
 	JPanel panelChart;
 	
 	
@@ -111,233 +152,269 @@ public class ControlPanel implements UserPanelCreator, ChangeListener{
 		// TODO Auto-generated method stub
 		
 		panel = new JPanel();
-		panel.setLayout(new GridLayout(1,2));
-						
+		panel.setLayout(new GridLayout(1, 2));
+		panel.setBorder(BorderFactory.createTitledBorder("æ§åˆ¶é¢æ¿"));				
+		
 		ScalChart demo1 = new ScalChart(3000, "Scal", "");
 		
-		
 		VelChart demo2 = new VelChart(3000, "Vel", "");
-		
 		
 		RChart demo3 = new RChart(3000, "R", "");
 		
 		
 		panelChart = new JPanel();
 		panelChart.setLayout(null);
+		panelChart.setBorder(BorderFactory.createTitledBorder("å‚æ•°å˜åŒ–å›¾"));
+		panelChart.setBounds(0, 0, 450, 880);
 		
-		demo1.setBounds(0, 0, 450, 280);
-		demo2.setBounds(0, 300, 450, 280);
-		demo3.setBounds(0, 600, 450, 280);
+		demo1.setBounds(0, 0, 500, 280);
+		demo2.setBounds(0, 300, 500, 280);
+		demo3.setBounds(0, 600, 500, 280);
 		
 		panelChart.add(demo1);
 		panelChart.add(demo2);
 		panelChart.add(demo3);
 		
 		panelSlider = new JPanel();
-		panelSlider.setLayout(new GridLayout(18, 2));
+		panelSlider.setLayout(new GridLayout(4, 1, 10, 10));
+		panelSlider.setBorder(BorderFactory.createTitledBorder("æ§åˆ¶å‚æ•°"));
 		
-		slider1 = new JSlider();
-		slider1.setMaximum(100);
-		slider1.setMinimum(0);
-		slider1.setPaintTicks(true);
-		slider1.setPaintLabels(true);
-		slider1.setValue((int) (Rtrg * 10));
-		label1 = new JLabel("(Ä¿±êÇø·ÉĞĞ°ë¾¶)Rtrg£º" + Rtrg);
-		slider1.addChangeListener(this);
 		
-		slider2 = new JSlider();
-		slider2.setMaximum(20);
-		slider2.setMinimum(0);
-		slider2.setPaintTicks(true);
-		slider2.setPaintLabels(true);
-		slider2.setValue((int) (R0));
-		label2 = new JLabel("(Æ½ºâ°ë¾¶)R0£º" + R0);
-		slider2.addChangeListener(this);
+		panelSlider1 = new JPanel();
+		panelSlider1.setLayout(new GridLayout(8, 2, 5, 5));
+		panelSlider1.setBorder(BorderFactory.createTitledBorder("Model Settings:"));
 		
-		slider3 = new JSlider();
-		slider3.setMaximum(20);
-		slider3.setMinimum(0);
-		slider3.setPaintTicks(true);
-		slider3.setPaintLabels(true);
-		slider3.setValue((int) (Rmin));
-		label3 = new JLabel("(×îĞ¡°ë¾¶)Rmin£º" + Rmin);
-		slider3.addChangeListener(this);
 		
-		slider4 = new JSlider();
-		slider4.setMaximum(100);
-		slider4.setMinimum(0);
-		slider4.setPaintTicks(true);
-		slider4.setPaintLabels(true);
-		slider4.setValue((int) (Rcom));
-		label4 = new JLabel("(±à¶Ó·ÉĞĞ°ë¾¶)Rcom£º" + Rcom);
-		slider4.addChangeListener(this);
+		panelSlider2 = new JPanel();
+		panelSlider2.setLayout(new GridLayout(4, 2, 5, 5));
+		panelSlider2.setBorder(BorderFactory.createTitledBorder("Hardware Settings:"));
 		
-		slider5 = new JSlider();
-		slider5.setMaximum(100);
-		slider5.setMinimum(0);
-		slider5.setPaintTicks(true);
-		slider5.setPaintLabels(true);
-		slider5.setValue((int) (D));
-		label5 = new JLabel("(Ïà»¥ÅÅ³âÇ¿¶È)D£º" + D);
-		slider5.addChangeListener(this);
 		
-		slider6 = new JSlider();
-		slider6.setMaximum(100);
-		slider6.setMinimum(0);
-		slider6.setPaintTicks(true);
-		slider6.setPaintLabels(true);
-		slider6.setValue((int) (Cfrict));
-		label6 = new JLabel("(ËÙ¶È¶ÔÆëÇ¿¶È)Cfrict£º" + Cfrict);
-		slider6.addChangeListener(this);
+		panelSlider3 = new JPanel();
+		panelSlider3.setLayout(new GridLayout(2, 2, 5, 5));
+		panelSlider3.setBorder(BorderFactory.createTitledBorder("Environment Settings"));
+	
 		
-		slider7 = new JSlider();
-		slider7.setMaximum(10);
-		slider7.setMinimum(0);
-		slider7.setPaintTicks(true);
-		slider7.setPaintLabels(true);
-		slider7.setValue((int) (Cshill));
-		label7 = new JLabel("(±à¶Ó·ÉĞĞĞéÄâ±ß½ç×÷ÓÃÁ¦Ç¿¶È)Cshill£º" + Cshill);
-		slider7.addChangeListener(this);
+		panelSlider4 = new JPanel();
+		panelSlider4.setLayout(new GridLayout(3, 2, 5, 5));
+		panelSlider4.setBorder(BorderFactory.createTitledBorder("Simulation Settings:"));
+
 		
-		slider8 = new JSlider();
-		slider8.setMaximum(10);
-		slider8.setMinimum(0);
-		slider8.setPaintTicks(true);
-		slider8.setPaintLabels(true);
-		slider8.setValue((int) (Noise));
-		label8 = new JLabel("(ÔëÒôÇ¿¶È)Noise£º" + Noise);
-		slider8.addChangeListener(this);
+		sliderD = new JSlider();
+		sliderD.setMaximum(20);
+		sliderD.setMinimum(0);
+		sliderD.setPaintTicks(true);
+		sliderD.setPaintLabels(true);
+		sliderD.setValue((int) (D));
+		labelD = new JLabel("Repulsion Strength (D): default 1.0 (per s)");
+		sliderD.addChangeListener(this);
 		
-		slider9 = new JSlider();
-		slider9.setMaximum(10);
-		slider9.setMinimum(0);
-		slider9.setPaintTicks(true);
-		slider9.setPaintLabels(true);
-		slider9.setValue((int) (d));
-		label9 = new JLabel("(±à¶Ó·ÉĞĞĞéÄâ±ß½ç×÷ÓÃ·¶Î§)d£º" + d);
-		slider9.addChangeListener(this);
+		sliderR0 = new JSlider();
+		sliderR0.setMaximum(20);
+		sliderR0.setMinimum(0);
+		sliderR0.setPaintTicks(true);
+		sliderR0.setPaintLabels(true);
+		sliderR0.setValue((int) (R0));
+		labelR0 = new JLabel("EQ Distance (r0): default 10.0 (m)");
+		sliderR0.addChangeListener(this);
 		
-		slider10 = new JSlider();
-		slider10.setMaximum(10);
-		slider10.setMinimum(0);
-		slider10.setPaintTicks(true);
-		slider10.setPaintLabels(true);
-		slider10.setValue((int) (V0));
-		label10 = new JLabel("(ÏòÄ¿±ê·ÉĞĞËÙ¶È)V0£º" + V0);
-		slider10.addChangeListener(this);
+		sliderCfrict = new JSlider();
+		sliderCfrict.setMaximum(100);
+		sliderCfrict.setMinimum(0);
+		sliderCfrict.setPaintTicks(true);
+		sliderCfrict.setPaintLabels(true);
+		sliderCfrict.setValue((int) (Cfrict));
+		labelCfrict = new JLabel("Friction Coefficient (Cfrict ): default 10.0 (m^2/s)");
+		sliderCfrict.addChangeListener(this);
 		
-		slider11 = new JSlider();
-		slider11.setMaximum(100);
-		slider11.setMinimum(0);
-		slider11.setPaintTicks(true);
-		slider11.setPaintLabels(true);
-		slider11.setValue((int) (Vflock));
-		label11 = new JLabel("(Èº¾ÛËÙ¶È)Vflock£º" + Vflock);
-		slider11.addChangeListener(this);
+		sliderCshill = new JSlider();
+		sliderCshill.setMaximum(100);
+		sliderCshill.setMinimum(0);
+		sliderCshill.setPaintTicks(true);
+		sliderCshill.setPaintLabels(true);
+		sliderCshill.setValue((int) (Cshill));
+		labelCshill = new JLabel("Shill Coefficient (Cshill): default 2.0");
+		sliderCshill.addChangeListener(this);
 		
-		slider12 = new JSlider();
-		slider12.setMaximum(10);
-		slider12.setMinimum(0);
-		slider12.setPaintTicks(true);
-		slider12.setPaintLabels(true);
-		slider12.setValue((int) (Tdel));
-		label12 = new JLabel("(´«ÊäÑÓÊ±)Tdel£º" + Tdel);
-		slider12.addChangeListener(this);
+		sliderVflock = new JSlider();
+		sliderVflock.setMaximum(10);
+		sliderVflock.setMinimum(0);
+		sliderVflock.setPaintTicks(true);
+		sliderVflock.setPaintLabels(true);
+		sliderVflock.setValue((int) (Vflock));
+		labelVflock = new JLabel("Flocking Speed (Vflock): default 4.0 (m/s)");
+		sliderVflock.addChangeListener(this);
 		
-		slider13 = new JSlider();
-		slider13.setMaximum(10);
-		slider13.setMinimum(0);
-		slider13.setPaintTicks(true);
-		slider13.setPaintLabels(true);
-		slider13.setValue((int) (t));
-		label13 = new JLabel("(¿ØÖÆÑÓÊ±)t£º" + t);
-		slider13.addChangeListener(this);
+		sliderV0 = new JSlider();
+		sliderV0.setMaximum(10);
+		sliderV0.setMinimum(0);
+		sliderV0.setPaintTicks(true);
+		sliderV0.setPaintLabels(true);
+		sliderV0.setValue((int) (V0));
+		labelV0 = new JLabel("Preferred Speed (V0): default 4.0 (m/s)");
+		sliderV0.addChangeListener(this);
 		
-		slider14 = new JSlider();
-		slider14.setMaximum(20);
-		slider14.setMinimum(0);
-		slider14.setPaintTicks(true);
-		slider14.setPaintLabels(true);
-		slider14.setValue((int) (T * 1000));
-		label14 = new JLabel("(Ë¢ĞÂÊ±¼ä)T£º" + T);
-		slider14.addChangeListener(this);
+		sliderAa = new JSlider();
+		sliderAa.setMaximum(10);
+		sliderAa.setMinimum(0);
+		sliderAa.setPaintTicks(true);
+		sliderAa.setPaintLabels(true);
+		sliderAa.setValue((int) (Aa));
+		labelAa = new JLabel("TRG Coefficient (alpha): default 1.0 ");
+		sliderAa.addChangeListener(this);
 		
-		slider15 = new JSlider();
-		slider15.setMaximum((int) (Define.spaceWidth - 20));
-		slider15.setMinimum(20);
-		slider15.setPaintTicks(true);
-		slider15.setPaintLabels(true);
-		slider15.setValue((int) (Xtrg.x));
-		label15 = new JLabel("(Ä¿±êÇøÖĞĞÄºá×ø±ê)Xtrg_x£º" + Xtrg.x);
-		slider15.addChangeListener(this);
+		sliderBb = new JSlider();
+		sliderBb.setMaximum(10);
+		sliderBb.setMinimum(0);
+		sliderBb.setPaintTicks(true);
+		sliderBb.setPaintLabels(true);
+		sliderBb.setValue((int) (Bb));
+		labelBb = new JLabel("COM Coefficient (beta): default 1.0");
+		sliderBb.addChangeListener(this);
 		
-		slider16 = new JSlider();
-		slider16.setMaximum((int) (Define.spaceHeight - 20));
-		slider16.setMinimum(20);
-		slider16.setPaintTicks(true);
-		slider16.setPaintLabels(true);
-		slider16.setValue((int) (Xtrg.y));
-		label16 = new JLabel("(Ä¿±êÇøÖĞĞÄ×İ×ø±ê)Xtrg_y£º" + Xtrg.y);
-		slider16.addChangeListener(this);
 		
-		/*
-		slider17 = new JSlider();
-		slider17.setMaximum((int) (Define.spaceWidth - 10));
-		slider17.setMinimum(10);
-		slider17.setPaintTicks(true);
-		slider17.setPaintLabels(true);
-		slider17.setValue(Wall_x);
-		label17 = new JLabel("Wall_x£º" + Wall_x);
-		slider17.addChangeListener(this);
 		
-		slider18 = new JSlider();
-		slider18.setMaximum((int) (Define.spaceHeight));
-		slider18.setMinimum(0);
-		slider18.setPaintTicks(true);
-		slider18.setPaintLabels(true);
-		slider18.setValue(Wall_y);
-		label18 = new JLabel("Wall_y£º" + Wall_y);
-		slider18.addChangeListener(this);
-		*/
 		
-		panelSlider.add(slider1);
-		panelSlider.add(label1);
-		panelSlider.add(slider2);
-		panelSlider.add(label2);
-		panelSlider.add(slider3);
-		panelSlider.add(label3);
-		panelSlider.add(slider4);
-		panelSlider.add(label4);
-		panelSlider.add(slider5);
-		panelSlider.add(label5);
-		panelSlider.add(slider6);
-		panelSlider.add(label6);
-		panelSlider.add(slider7);
-		panelSlider.add(label7);
-		panelSlider.add(slider8);
-		panelSlider.add(label8);
-		panelSlider.add(slider9);
-		panelSlider.add(label9);
-		panelSlider.add(slider10);
-		panelSlider.add(label10);
-		panelSlider.add(slider11);
-		panelSlider.add(label11);
-		panelSlider.add(slider12);
-		panelSlider.add(label12);
-		panelSlider.add(slider13);
-		panelSlider.add(label13);
-		panelSlider.add(slider14);
-		panelSlider.add(label14);
-		panelSlider.add(slider15);
-		panelSlider.add(label15);
-		panelSlider.add(slider16);
-		panelSlider.add(label16);
-		/*
-		panelSlider.add(slider17);
-		panelSlider.add(label17);
-		panelSlider.add(slider18);
-		panelSlider.add(label18);
-		*/
+		sliderTrec = new JSlider();
+		sliderTrec.setMaximum(10);
+		sliderTrec.setMinimum(0);
+		sliderTrec.setPaintTicks(true);
+		sliderTrec.setPaintLabels(true);
+		sliderTrec.setValue((int) (Trec));
+		labelTrec = new JLabel("GPS Refresh Rate: default 0.2 (s)");
+		sliderTrec.addChangeListener(this);
+		
+		sliderRc = new JSlider();
+		sliderRc.setMaximum(200);
+		sliderRc.setMinimum(0);
+		sliderRc.setPaintTicks(true);
+		sliderRc.setPaintLabels(true);
+		sliderRc.setValue((int) (Rc));
+		labelRc = new JLabel("Sensor Range: default 100 (m)");
+		sliderRc.addChangeListener(this);
+		
+		slidert = new JSlider();
+		slidert.setMaximum(10);
+		slidert.setMinimum(0);
+		slidert.setPaintTicks(true);
+		slidert.setPaintLabels(true);
+		slidert.setValue((int) (t));
+		labelt = new JLabel("Relaxation Time of PID: default 1.0 (s)");
+		slidert.addChangeListener(this);
+		
+		sliderInnerNoise = new JSlider();
+		sliderInnerNoise.setMaximum(10);
+		sliderInnerNoise.setMinimum(0);
+		sliderInnerNoise.setPaintTicks(true);
+		sliderInnerNoise.setPaintLabels(true);
+		sliderInnerNoise.setValue((int) (innerNoise));
+		labelInnerNoise = new JLabel("GPS xy Accuracy (inner noise): default 0.000 (m^2/s^2)");
+		sliderInnerNoise.addChangeListener(this);
+		
+		
+		
+		
+		sliderTdel = new JSlider();
+		sliderTdel.setMaximum(10);
+		sliderTdel.setMinimum(0);
+		sliderTdel.setPaintTicks(true);
+		sliderTdel.setPaintLabels(true);
+		sliderTdel.setValue((int) (Tdel));
+		labelTdel = new JLabel("Delay Time: default 1 (s)");
+		sliderTdel.addChangeListener(this);
+		
+		sliderOuterNoise = new JSlider();
+		sliderOuterNoise.setMaximum(10);
+		sliderOuterNoise.setMinimum(0);
+		sliderOuterNoise.setPaintTicks(true);
+		sliderOuterNoise.setPaintLabels(true);
+		sliderOuterNoise.setValue((int) (outerNoise));
+		labelOuterNoise = new JLabel("Outer Noise: default 0.1 (m^2/s^3)");
+		sliderOuterNoise.addChangeListener(this);
+		
+		
+		
+		
+		sliderT = new JSlider();
+		sliderT.setMaximum(20);
+		sliderT.setMinimum(0);
+		sliderT.setPaintTicks(true);
+		sliderT.setPaintLabels(true);
+		sliderT.setValue((int) (T * 1000));
+		labelT = new JLabel("Visualization Speed: default 50 (per s)");
+		sliderT.addChangeListener(this);
+		
+		sliderXtrg_x = new JSlider();
+		sliderXtrg_x.setMaximum((int) (Define.spaceWidth - 20));
+		sliderXtrg_x.setMinimum(20);
+		sliderXtrg_x.setPaintTicks(true);
+		sliderXtrg_x.setPaintLabels(true);
+		sliderXtrg_x.setValue((int) (Xtrg.x));
+		labelXtrg_x = new JLabel("X Position of Target" + Xtrg.x);
+		sliderXtrg_x.addChangeListener(this);
+		
+		sliderXtrg_y = new JSlider();
+		sliderXtrg_y.setMaximum((int) (Define.spaceHeight - 20));
+		sliderXtrg_y.setMinimum(20);
+		sliderXtrg_y.setPaintTicks(true);
+		sliderXtrg_y.setPaintLabels(true);
+		sliderXtrg_y.setValue((int) (Xtrg.y));
+		labelXtrg_y = new JLabel("Y Position of Target:" + Xtrg.y);
+		sliderXtrg_y.addChangeListener(this);
+		
+		
+		
+		
+		
+		
+	
+	
+		panelSlider1.add(sliderD);
+		panelSlider1.add(labelD);
+		panelSlider1.add(sliderR0);
+		panelSlider1.add(labelR0);
+		panelSlider1.add(sliderCfrict);
+		panelSlider1.add(labelCfrict);
+		panelSlider1.add(sliderCshill);
+		panelSlider1.add(labelCshill);
+		panelSlider1.add(sliderVflock);
+		panelSlider1.add(labelVflock);
+		panelSlider1.add(sliderV0);
+		panelSlider1.add(labelV0);
+		panelSlider1.add(sliderAa);
+		panelSlider1.add(labelAa);
+		panelSlider1.add(sliderBb);
+		panelSlider1.add(labelBb);
+		
+		
+		panelSlider2.add(sliderTrec);
+		panelSlider2.add(labelTrec);
+		panelSlider2.add(sliderRc);
+		panelSlider2.add(labelRc);
+		panelSlider2.add(slidert);
+		panelSlider2.add(labelt);
+		panelSlider2.add(sliderInnerNoise);
+		panelSlider2.add(labelInnerNoise);
+	
+		
+		panelSlider3.add(sliderTdel);
+		panelSlider3.add(labelTdel);
+		panelSlider3.add(sliderOuterNoise);
+		panelSlider3.add(labelOuterNoise);
+	
+		
+		panelSlider4.add(sliderT);
+		panelSlider4.add(labelT);
+		panelSlider4.add(sliderXtrg_x);
+		panelSlider4.add(labelXtrg_x);
+		panelSlider4.add(sliderXtrg_y);
+		panelSlider4.add(labelXtrg_y);
+	
+		panelSlider.add(panelSlider1);
+		panelSlider.add(panelSlider2);
+		panelSlider.add(panelSlider3);
+		panelSlider.add(panelSlider4);
+		
 		panel.add(panelChart);
 		panel.add(panelSlider);
 		
@@ -349,79 +426,82 @@ public class ControlPanel implements UserPanelCreator, ChangeListener{
 	
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		if ((JSlider)e.getSource() == slider1) {
-			label1.setText("(Ä¿±êÇø·ÉĞĞ°ë¾¶)Rtrg£º" + slider1.getValue()/10);
-			Rtrg = slider1.getValue()/10;
+		
+		if ((JSlider)e.getSource() == sliderD) {
+			labelD.setText("Repulsion Strength (D): " + sliderD.getValue() + " (per s)");
+			D = sliderD.getValue();
 		}
-		if ((JSlider)e.getSource() == slider2) {
-			label2.setText("(Æ½ºâ°ë¾¶)R0£º" + slider2.getValue());
-			R0 = slider2.getValue();
+		if ((JSlider)e.getSource() == sliderR0) {
+			labelR0.setText("EQ Distance (r0): " + sliderR0.getValue() + " (m)");
+			R0 = sliderR0.getValue();
 		}
-		if ((JSlider)e.getSource() == slider3) {
-			label3.setText("(×îĞ¡°ë¾¶)Rmin£º" + slider3.getValue());
-			Rmin = slider3.getValue();
+		if ((JSlider)e.getSource() == sliderCfrict) {
+			labelCfrict.setText("Friction Coefficient (Cfrict ): " + sliderCfrict.getValue() + " (m^2/s)");
+			Cfrict = sliderCfrict.getValue();
 		}
-		if ((JSlider)e.getSource() == slider4) {
-			label4.setText("(±à¶Ó·ÉĞĞ°ë¾¶)Rcom£º" + slider4.getValue());
-			Rcom = slider4.getValue();
+		if ((JSlider)e.getSource() == sliderCshill) {
+			labelCshill.setText("Shill Coefficient (Cshill): " + sliderCshill.getValue());
+			Cshill = sliderCshill.getValue();
 		}
-		if ((JSlider)e.getSource() == slider5) {
-			label5.setText("(Ïà»¥ÅÅ³âÇ¿¶È)D£º" + slider5.getValue());
-			D = slider5.getValue();
+		if ((JSlider)e.getSource() == sliderVflock) {
+			labelVflock.setText("Flocking Speed (Vflock): " + sliderVflock.getValue() + "(m/s)");
+			Vflock = sliderVflock.getValue();
 		}
-		if ((JSlider)e.getSource() == slider6) {
-			label6.setText("(ËÙ¶È¶ÔÆëÇ¿¶È)Cfrict£º" + slider6.getValue());
-			Cfrict = slider6.getValue();
+		if ((JSlider)e.getSource() == sliderV0) {
+			labelV0.setText("Preferred Speed (V0): " + sliderV0.getValue() + " (m/s)");
+			V0 = sliderV0.getValue();
 		}
-		if ((JSlider)e.getSource() == slider7) {
-			label7.setText("(±à¶Ó·ÉĞĞĞéÄâ±ß½ç×÷ÓÃÁ¦Ç¿¶È)Cshill£º" + slider7.getValue());
-			Cshill = slider7.getValue();
+		if ((JSlider)e.getSource() == sliderAa) {
+			labelAa.setText("TRG Coefficient (alpha): " + sliderAa.getValue());
+			Aa = sliderAa.getValue();
 		}
-		if ((JSlider)e.getSource() == slider8) {
-			label8.setText("(ÔëÒôÇ¿¶È)Noise£º" + slider8.getValue());
-			Noise = slider8.getValue();
+		if ((JSlider)e.getSource() == sliderBb) {
+			labelBb.setText("COM Coefficient (beta): " + sliderBb.getValue());
+			Bb = sliderBb.getValue();
 		}
-		if ((JSlider)e.getSource() == slider9) {
-			label9.setText("(±à¶Ó·ÉĞĞĞéÄâ±ß½ç×÷ÓÃ·¶Î§)d£º" + slider9.getValue());
-			d = slider9.getValue();
+		
+		
+		if ((JSlider)e.getSource() == sliderTrec) {
+			labelTrec.setText("GPS Refresh Rate: " + sliderTrec.getValue() + " (s)");
+			Trec = sliderTrec.getValue();
 		}
-		if ((JSlider)e.getSource() == slider10) {
-			label10.setText("(ÏòÄ¿±ê·ÉĞĞËÙ¶È)V0£º" + slider10.getValue());
-			V0 = slider10.getValue();
+		if ((JSlider)e.getSource() == sliderRc) {
+			labelRc.setText("Sensor Range: " + sliderRc.getValue() + " (m)");
+			Rc = sliderRc.getValue();
 		}
-		if ((JSlider)e.getSource() == slider11) {
-			label11.setText("(Èº¾ÛËÙ¶È)Vflock£º" + slider11.getValue());
-			Vflock = slider11.getValue();
+		if ((JSlider)e.getSource() == slidert) {
+			labelt.setText("Relaxation Time of PID: " + slidert.getValue() + " (s)");
+			t = slidert.getValue();
 		}
-		if ((JSlider)e.getSource() == slider12) {
-			label12.setText("(´«ÊäÑÓÊ±)Tdel£º" + slider12.getValue());
-			Tdel = slider12.getValue();
+		if ((JSlider)e.getSource() == sliderInnerNoise) {
+			labelInnerNoise.setText("GPS xy Accuracy (inner noise): " + sliderInnerNoise.getValue());
+			innerNoise = sliderInnerNoise.getValue();
 		}
-		if ((JSlider)e.getSource() == slider13) {
-			label13.setText("(¿ØÖÆÑÓÊ±)t£º" + slider13.getValue());
-			t = slider13.getValue();
+		
+		
+		if ((JSlider)e.getSource() == sliderTdel) {
+			labelTdel.setText("Delay Time: " + sliderTdel.getValue() + " (s)");
+			Tdel = sliderTdel.getValue();
 		}
-		if ((JSlider)e.getSource() == slider14) {
-			label14.setText("(Ë¢ĞÂÊ±¼ä)T£º" + (double)slider14.getValue()/1000);
-			T = (double)slider14.getValue()/1000;
+		if ((JSlider)e.getSource() == sliderOuterNoise) {
+			labelOuterNoise.setText("Outer Noise: " + sliderOuterNoise.getValue() + " (m^2/s^3)");
+			outerNoise = sliderOuterNoise.getValue();
 		}
-		if ((JSlider)e.getSource() == slider15) {
-			label15.setText("(Ä¿±êÇøÖĞĞÄºá×ø±ê)Xtrg_x£º" + slider15.getValue());
-			Xtrg.x = slider15.getValue();
+		
+		
+		if ((JSlider)e.getSource() == sliderT) {
+			labelT.setText("Visualization Speed: " + 1/((double)sliderT.getValue()/1000) + " (per s)");
+			T = (double)sliderT.getValue()/1000;
 		}
-		if ((JSlider)e.getSource() == slider16) {
-			label16.setText("(Ä¿±êÇøÖĞĞÄ×İ×ø±ê)Xtrg_y£º" + slider16.getValue());
-			Xtrg.y = slider16.getValue();
+		if ((JSlider)e.getSource() == sliderXtrg_x) {
+			labelXtrg_x.setText("X Position of Target: " + sliderXtrg_x.getValue());
+			Xtrg.x = sliderXtrg_x.getValue();
 		}
-		/*
-		if ((JSlider)e.getSource() == slider17) {
-			label17.setText("Wall_x£º" + slider17.getValue());
-			Wall_x = slider17.getValue();
+		if ((JSlider)e.getSource() == sliderXtrg_y) {
+			labelXtrg_y.setText("Y Position of Target: " + sliderXtrg_y.getValue());
+			Xtrg.y = sliderXtrg_y.getValue();
 		}
-		if ((JSlider)e.getSource() == slider18) {
-			label18.setText("Wall_y£º" + slider18.getValue());
-			Wall_y = slider18.getValue();
-		}*/
+	
 	}
 
 }

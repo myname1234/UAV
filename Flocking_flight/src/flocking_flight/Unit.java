@@ -83,7 +83,7 @@ public class Unit {
 			time = 0;
 		}
 		
-		velocity.add(mult(noise, ControlPanel.Noise));
+		velocity.add(mult(noise, ControlPanel.outerNoise));
 		
 		pos.add(mult(velocity, ControlPanel.T));
 	}

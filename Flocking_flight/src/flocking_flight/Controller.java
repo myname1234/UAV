@@ -54,6 +54,10 @@ public class Controller {
 		
 		target = new Target(ControlPanel.Xtrg.x, ControlPanel.Xtrg.y, context, space);
 		
+		cleanData(filename1);
+		cleanData(filename2);
+		cleanData(filename3);
+		
 		Print(Time, 0, filename1);
 		Print(Time, 0, filename2);
 		Print(Time, 0, filename3);
@@ -101,6 +105,18 @@ public class Controller {
 			Print(Time, getWvel(), filename2);
 			Print(Time, getR(), filename3);
 			timeStep = 0;
+		}
+	}
+	
+	public void cleanData(String path) {
+		File file = new File(path);
+		try {
+			FileWriter fw = new FileWriter(file);
+			fw.write("");
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
