@@ -1,0 +1,4 @@
+<repast.simphony.userpanel.ui.DefaultUserPanelDescriptor>
+  <name>Custom Panel</name>
+  <userPanelCreator>flocking_flight.ControlPanel</userPanelCreator>
+</repast.simphony.userpanel.ui.DefaultUserPanelDescriptor>
