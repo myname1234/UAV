@@ -1,0 +1,15 @@
+package flocking_flight;
+
+import javax.swing.JPanel;
+
+import repast.simphony.userpanel.ui.UserPanelCreator;
+
+public class ChartPanel implements UserPanelCreator{
+
+	@Override
+	public JPanel createPanel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

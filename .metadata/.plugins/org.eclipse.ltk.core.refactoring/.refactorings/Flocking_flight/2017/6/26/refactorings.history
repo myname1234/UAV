@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;Noise&apos; in &apos;flocking_flight.ControlPanel&apos; to &apos;outNoise&apos;&#x0D;&#x0A;- Original project: &apos;Flocking_flight&apos;&#x0D;&#x0A;- Original element: &apos;flocking_flight.ControlPanel.Noise&apos;&#x0D;&#x0A;- Renamed element: &apos;flocking_flight.ControlPanel.outNoise&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;Noise&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;flocking_flight{ControlPanel.java[ControlPanel^Noise" name="outNoise" references="true" setter="false" stamp="1498559336752" textual="false" version="1.0"/>
+</session>
