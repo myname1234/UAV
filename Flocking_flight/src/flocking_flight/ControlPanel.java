@@ -134,10 +134,6 @@ Simulation Settings:
 	JLabel labelXtrg_x;
 	JLabel labelXtrg_y;
 	
-
-	
-	
-	
 	JPanel panel;
 	JPanel panelSlider;
 	JPanel panelSlider1;
@@ -152,8 +148,9 @@ Simulation Settings:
 		// TODO Auto-generated method stub
 		
 		panel = new JPanel();
-		panel.setLayout(new GridLayout(1, 2));
+		panel.setLayout(null);
 		panel.setBorder(BorderFactory.createTitledBorder("控制面板"));				
+		panel.setBounds(5, 20, 1010, 900);
 		
 		ScalChart demo1 = new ScalChart(3000, "Scal", "");
 		
@@ -164,41 +161,40 @@ Simulation Settings:
 		
 		panelChart = new JPanel();
 		panelChart.setLayout(null);
-		panelChart.setBorder(BorderFactory.createTitledBorder("参数变化图"));
-		panelChart.setBounds(0, 0, 450, 880);
+		panelChart.setBounds(5, 20, 450, 880);
 		
-		demo1.setBounds(0, 0, 500, 280);
-		demo2.setBounds(0, 300, 500, 280);
-		demo3.setBounds(0, 600, 500, 280);
+		demo1.setBounds(0, 0, 445, 260);
+		demo2.setBounds(0, 270, 445, 260);
+		demo3.setBounds(0, 540, 445, 260);
 		
 		panelChart.add(demo1);
 		panelChart.add(demo2);
 		panelChart.add(demo3);
 		
 		panelSlider = new JPanel();
-		panelSlider.setLayout(new GridLayout(4, 1, 10, 10));
+		panelSlider.setLayout(null);
 		panelSlider.setBorder(BorderFactory.createTitledBorder("控制参数"));
-		
+		panelSlider.setBounds(450, 0, 550, 880);
 		
 		panelSlider1 = new JPanel();
-		panelSlider1.setLayout(new GridLayout(8, 2, 5, 5));
+		panelSlider1.setLayout(null);
 		panelSlider1.setBorder(BorderFactory.createTitledBorder("Model Settings:"));
-		
+		panelSlider1.setBounds(5, 20, 540, 340);
 		
 		panelSlider2 = new JPanel();
-		panelSlider2.setLayout(new GridLayout(4, 2, 5, 5));
+		panelSlider2.setLayout(null);
 		panelSlider2.setBorder(BorderFactory.createTitledBorder("Hardware Settings:"));
-		
+		panelSlider2.setBounds(5, 380, 540, 180);
 		
 		panelSlider3 = new JPanel();
-		panelSlider3.setLayout(new GridLayout(2, 2, 5, 5));
+		panelSlider3.setLayout(null);
 		panelSlider3.setBorder(BorderFactory.createTitledBorder("Environment Settings"));
-	
+		panelSlider3.setBounds(5, 580, 540, 100);
 		
 		panelSlider4 = new JPanel();
-		panelSlider4.setLayout(new GridLayout(3, 2, 5, 5));
+		panelSlider4.setLayout(null);
 		panelSlider4.setBorder(BorderFactory.createTitledBorder("Simulation Settings:"));
-
+		panelSlider4.setBounds(5, 700, 540, 140);
 		
 		sliderD = new JSlider();
 		sliderD.setMaximum(20);
@@ -272,7 +268,22 @@ Simulation Settings:
 		labelBb = new JLabel("COM Coefficient (beta): default 1.0");
 		sliderBb.addChangeListener(this);
 		
-		
+		sliderD.setBounds(5, 20, 200, 35);
+		labelD.setBounds(205, 20, 340, 35);
+		sliderR0.setBounds(5, 60, 200, 35);
+		labelR0.setBounds(205, 60, 340, 35);
+		sliderCfrict.setBounds(5, 100, 200, 35);
+		labelCfrict.setBounds(205, 100, 340, 35);
+		sliderCshill.setBounds(5, 140, 200, 35);
+		labelCshill.setBounds(205, 140, 340, 35);
+		sliderVflock.setBounds(5, 180, 200, 35);
+		labelVflock.setBounds(205, 180, 340, 35);
+		sliderV0.setBounds(5, 220, 200, 35);
+		labelV0.setBounds(205, 220, 340, 35);
+		sliderAa.setBounds(5, 260, 200, 35);
+		labelAa.setBounds(205, 260, 340, 35);
+		sliderBb.setBounds(5, 300, 200, 35);
+		labelBb.setBounds(205, 300, 340, 35);
 		
 		
 		sliderTrec = new JSlider();
@@ -311,7 +322,14 @@ Simulation Settings:
 		labelInnerNoise = new JLabel("GPS xy Accuracy (inner noise): default 0.000 (m^2/s^2)");
 		sliderInnerNoise.addChangeListener(this);
 		
-		
+		sliderTrec.setBounds(5, 20, 200, 35);
+		labelTrec.setBounds(205, 20, 340, 35);
+		sliderRc.setBounds(5, 60, 200, 35);
+		labelRc.setBounds(205, 60, 340, 35);
+		slidert.setBounds(5, 100, 200, 35);
+		labelt.setBounds(205, 100, 340, 35);
+		sliderInnerNoise.setBounds(5, 140, 200, 35);
+		labelInnerNoise.setBounds(205, 140, 340, 35);
 		
 		
 		sliderTdel = new JSlider();
@@ -332,7 +350,10 @@ Simulation Settings:
 		labelOuterNoise = new JLabel("Outer Noise: default 0.1 (m^2/s^3)");
 		sliderOuterNoise.addChangeListener(this);
 		
-		
+		sliderTdel.setBounds(5, 20, 200, 35);
+		labelTdel.setBounds(205, 20, 340, 35);
+		sliderOuterNoise.setBounds(5, 60, 200, 35);
+		labelOuterNoise.setBounds(205, 60, 340, 35);
 		
 		
 		sliderT = new JSlider();
@@ -362,7 +383,12 @@ Simulation Settings:
 		labelXtrg_y = new JLabel("Y Position of Target:" + Xtrg.y);
 		sliderXtrg_y.addChangeListener(this);
 		
-		
+		sliderT.setBounds(5, 20, 200, 35);
+		labelT.setBounds(205, 20, 340, 35);
+		sliderXtrg_x.setBounds(5, 60, 200, 35);
+		labelXtrg_x.setBounds(205, 60, 340, 35);
+		sliderXtrg_y.setBounds(5, 100, 200, 35);
+		labelXtrg_y.setBounds(205, 100, 340, 35);
 		
 		
 		
