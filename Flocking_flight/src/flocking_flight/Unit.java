@@ -13,9 +13,10 @@ public class Unit {
 	Vector2d lastpos;//Tdel之前的位置
 	Vector2d lastvelocity;//Tdel之前的速度
 
-	//ArrayList<Unit> neighbors;
+	ArrayList<Unit> neighbors;
 	
 	double time = 0;
+	double timestep = 0;
 	
 	public Unit(double xx, double yy, Context<Object> context, ContinuousSpace<Object> space) {
 		pos = new Vector2d(xx, yy);
@@ -24,7 +25,7 @@ public class Unit {
 		lastpos = new Vector2d(xx, yy);
 		lastvelocity = velocity;
 				
-		//neighbors = new ArrayList<>();
+		
 		
 		context.add(this);
 		space.moveTo(this, this.pos.x, this.pos.y);
@@ -39,9 +40,18 @@ public class Unit {
 	
 	
 	public void go(ArrayList<Unit> allUnits, ArrayList<Wall> allWalls, Vector2d Xshp, Vector2d com, ContinuousSpace<Object> space) {
-		
+		timestep += ControlPanel.T;
 		time += ControlPanel.T;
-		flock(Xshp, allUnits, com, allWalls);
+		
+		
+		if(timestep >= ControlPanel.Trec) {
+			flock(Xshp, allUnits, com, allWalls);
+			timestep = 0;
+		}
+		else {
+			pos.add(mult(velocity, ControlPanel.T));
+		}
+		
 		
 		wrap();
 		space.moveTo(this, this.pos.x, this.pos.y);
@@ -88,12 +98,12 @@ public class Unit {
 		pos.add(mult(velocity, ControlPanel.T));
 	}
 	
-//	public void getNeighbors(ArrayList<Unit> allUnits) {
-//		for (Unit other : allUnits) {
-//			if (other == this) continue;
-//			if (distance(other.lastpos, this.pos) < ControlPanel.RC) neighbors.add(other);
-//		}
-//	}
+	public void getNeighbors(ArrayList<Unit> allUnits) {
+		for (Unit other : allUnits) {
+			if (other == this) continue;
+			if (distance(other.lastpos, this.pos) < ControlPanel.Rc) neighbors.add(other);
+		}
+	}
 	
 	/**
 	 * Unit间排斥力加速度
