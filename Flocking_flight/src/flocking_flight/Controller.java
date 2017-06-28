@@ -92,9 +92,13 @@ public class Controller {
 		
 		}
 		
+		if (ControlPanel.TargetMoveAuto) {
+			addCircleTrack(context, space);
+		}
+		else {
+			target.go(ControlPanel.Xtrg.x, ControlPanel.Xtrg.y, space);
+		}
 		
-		addCircleTrack(context, space);
-		//target.go(ControlPanel.Xtrg.x, ControlPanel.Xtrg.y, space);
 		//System.out.println(allUnits.toString());
 		
 		if (timeStep == (int)(1/ControlPanel.T)) {

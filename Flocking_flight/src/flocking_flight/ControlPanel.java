@@ -8,8 +8,11 @@ import java.awt.Component;
 import java.awt.Graphics;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -90,7 +93,7 @@ Simulation Settings:
 	public static double T = 0.02;//50/s
 	public static Vector2d Xtrg = new Vector2d(80, 80);
 	
-	
+	public static boolean TargetMoveAuto = false;
 
 	JSlider sliderD;
 	JSlider sliderR0;
@@ -141,6 +144,8 @@ Simulation Settings:
 	JPanel panelSlider3;
 	JPanel panelSlider4;
 	JPanel panelChart;
+	
+	JButton button;
 	
 	
 	@Override
@@ -385,13 +390,42 @@ Simulation Settings:
 		
 		sliderT.setBounds(5, 20, 200, 35);
 		labelT.setBounds(205, 20, 340, 35);
-		sliderXtrg_x.setBounds(5, 60, 200, 35);
-		labelXtrg_x.setBounds(205, 60, 340, 35);
-		sliderXtrg_y.setBounds(5, 100, 200, 35);
-		labelXtrg_y.setBounds(205, 100, 340, 35);
+		sliderXtrg_x.setBounds(105, 60, 200, 35);
+		labelXtrg_x.setBounds(305, 60, 240, 35);
+		sliderXtrg_y.setBounds(105, 100, 200, 35);
+		labelXtrg_y.setBounds(305, 100, 240, 35);
 		
 		
-		
+		button = new JButton("close");
+		button.setBounds(5, 60, 80, 50);
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				if (TargetMoveAuto) {
+					button.setText("close");
+					TargetMoveAuto = false;
+					sliderXtrg_x.setVisible(true);
+					labelXtrg_x.setVisible(true);
+					sliderXtrg_y.setVisible(true);
+					labelXtrg_y.setVisible(true);
+					
+					sliderXtrg_x.setValue((int)Xtrg.x);
+					labelXtrg_x.setText("X Position of Target" + Xtrg.x);
+					sliderXtrg_y.setValue((int)Xtrg.y);
+					labelXtrg_y.setText("Y Position of Target" + Xtrg.y);
+				}
+				else {
+					button.setText("open");
+					TargetMoveAuto = true;
+					sliderXtrg_x.setVisible(false);
+					labelXtrg_x.setVisible(false);
+					sliderXtrg_y.setVisible(false);
+					labelXtrg_y.setVisible(false);
+				}
+			}
+		});
 		
 	
 	
@@ -435,6 +469,7 @@ Simulation Settings:
 		panelSlider4.add(labelXtrg_x);
 		panelSlider4.add(sliderXtrg_y);
 		panelSlider4.add(labelXtrg_y);
+		panelSlider4.add(button);
 	
 		panelSlider.add(panelSlider1);
 		panelSlider.add(panelSlider2);
