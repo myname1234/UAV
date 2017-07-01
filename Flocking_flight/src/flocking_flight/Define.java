@@ -33,12 +33,12 @@ public class Define {
 	public static final double height = 30;
 	
 	
-	public static final double spaceWidth = 100;
-	public static final double spaceHeight = 100;
+	public static final double spaceWidth = 200;
+	public static final double spaceHeight = 200;
 	
 	//public static final Vector2d Xtrg = new Vector2d(900, 700);
 	
-	public static final int N = 9;
+	public static final int N = 4;
 	public static final int WallNum = 20;
 	
 	public static final String filename1 = "output/1.txt";

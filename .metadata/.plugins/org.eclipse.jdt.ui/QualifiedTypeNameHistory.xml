@@ -7,4 +7,15 @@
 <fullyQualifiedTypeName name="repast.simphony.userpanel.ui.UserPanelCreator"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+<fullyQualifiedTypeName name="javax.swing.JButton"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="repast.simphony.space.continuous.ContinuousSpace"/>
+<fullyQualifiedTypeName name="flocking_flight.ControlPanel"/>
+<fullyQualifiedTypeName name="repast.simphony.visualization.visualization2D.style.Style2D"/>
+<fullyQualifiedTypeName name="repast.simphony.visualizationOGL2D.StyleOGL2D"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="flocking_flight.Boid"/>
+<fullyQualifiedTypeName name="javax.vecmath.Vector2d"/>
 </qualifiedTypeNameHistroy>

@@ -63,7 +63,7 @@ Simulation Settings:
 	 */
 	
 	public static double Rtrg = 6.5;
-	public static double Rcom = 15;
+	public static double Rcom = 0;
 	public static double Rmin = 10;
 	public static double d = 2;
 	public static int Wall_x = 50;

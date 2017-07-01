@@ -69,25 +69,28 @@ public class Controller {
 	public void step() {
 		timeStep ++;
 		
-		//ArrayList<Vector2d> Xshp = new ArrayList<>();
+		
 		Vector2d com = getCoM(allUnits);
 		
-//		for (int i = 0; i < allWalls.size(); i ++) {
-//			allWalls.get(i).go(ControlPanel.Wall_x + i, ControlPanel.Wall_y, space);
-//		}
+		Vector2d[] xshp = new Vector2d[Define.N];
+		
+		for (int i = 0; i < Define.N; i ++) {
+			double d = i / Define.N * Math.PI * 2;
+			xshp[i] = new Vector2d(com.x + 10 * Math.cos(d), com.y + 10 * Math.sin(d));
+		}
+
 		
 		for (int i = 0; i < Define.N; i ++) {
 			
-			
-			
-			//Grid
-	
 			Unit unit = allUnits.get(i);
-			
+			/*
+			//Grid
 			unit.go(allUnits, allWalls, com, com, space);
-			
 			allFlights.get(i).go(unit.pos.x, unit.pos.y, space);
-			
+			*/
+			//ring
+			unit.go(allUnits, allWalls, xshp[i], com, space);
+			allFlights.get(i).go(unit.pos.x, unit.pos.y, space);
 			
 		
 		}
@@ -112,6 +115,10 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * 清空数据
+	 * @param path
+	 */
 	public void cleanData(String path) {
 		File file = new File(path);
 		try {
@@ -124,7 +131,11 @@ public class Controller {
 		}
 	}
 	
-	
+	/**
+	 * target 自动移动
+	 * @param context
+	 * @param space
+	 */
 	public void addCircleTrack(Context<Object> context, ContinuousSpace<Object> space) {
 		Vector2d pos = target.pos;
 		double step = ControlPanel.Vflock * ControlPanel.T;
@@ -139,7 +150,7 @@ public class Controller {
 		if (pos.x <= 80 && pos.x > 20 && pos.y <= 20) {
 			pos.x -= step;
 			pos.y = 20;
-		}
+		}                                                                                                                                                                                  
 		//向上移动(20, 20)
 		if (pos.x <= 20 && pos.y >= 20 && pos.y < 80) {
 			pos.x = 20;
@@ -155,7 +166,11 @@ public class Controller {
 		
 	}
 	
-	
+	/**
+	 * 随机添加障碍物
+	 * @param context
+	 * @param space
+	 */
 	public void addWalls(Context<Object> context, ContinuousSpace<Object> space){
 		allWalls = new ArrayList<>();
 		
@@ -164,6 +179,11 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * 添加一整面墙
+	 * @param context
+	 * @param space
+	 */
 	public void addLineWall(Context<Object> context, ContinuousSpace<Object> space) {
 		allWalls = new ArrayList<>();
 		
@@ -172,6 +192,9 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * 添加四面墙
+	 */
 	public void addSquareWall() {
 		allWalls = new ArrayList<>();
 		
@@ -189,6 +212,9 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * 添加比例尺
+	 */
 	public void addScaleBar() {
 		allScaleBars = new ArrayList<>();
 		for (int i = 0; i < 10; i ++) {
